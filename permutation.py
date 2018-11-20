@@ -10,4 +10,15 @@ def permutation(nums):
     print set
 
 
-permutation([1,2,3])
+def permutation2(nums):
+    if len(nums) == 1:
+        return [nums]
+    r = []
+    for i, num in enumerate(nums):
+        newnums = nums[:i]+nums[i+1:]
+        for s in permutation2(newnums):
+            r.append([num]+s)
+    return r
+
+# permutation([1,2,3])
+print permutation2([1,2,3])

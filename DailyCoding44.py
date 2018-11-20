@@ -7,8 +7,6 @@ class TreeNode:
         self.left = None
         self.right = None
 
-
-
 def bfs(root):
     q = collections.deque([])
     q.append(root)
