@@ -1,20 +1,13 @@
-def permute (nums):
-    li = []
-    for i in nums:
-        helper(li,[i],nums)
-    print li
-    return list
+def dfs(nums,path,all):
+    if not nums:
+        all.append(path)
+    for i in range(len(nums)):
+        dfs(nums[:i]+nums[i+1:],path+[nums[i]],all)
 
-def helper(li,permutation,nums):
-    if len(permutation) == len(nums):
-        li.append(permutation)
-        print permutation
-        return
-    for i in nums:
-        if i in permutation:
-            continue
-            permutation.append[i]
-            helper(li,permutation,nums)
-            permutation.pop()
+def permutation(nums):
+    set = []
+    dfs(nums,[],set)
+    print set
 
-permute([1,2,3]);
+
+permutation([1,2,3])
