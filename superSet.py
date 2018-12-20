@@ -1,34 +1,36 @@
-numsset = [1,2]
-
-def subset1(set):
-    result = [[]]
-    for i in set:
-        result += [r + [i]for r in result]
-    return result
-
-
-def dfs(nums,index,path,re):
-    re.append(path)
-    for i in xrange(index,len(nums)):
-        dfs(nums, i+1,path+[nums[i]],re)
-
-def subset2(nums):
-    re = []
-    dfs(nums,0,[],re)
-    return re
+#sub set without duplicates recursion:
+class NoDup(object):
+    def subsets(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: List[List[int]]
+        """
+        if not nums:
+            return [[]]
+        if len(nums) == 1:
+            return[nums,[]]
+        ans = []
+        for s in self.subsets(nums[1:]):
+            ans.append(s)
+            ans.append([nums[0]]+s)
+        return ans
 
 
-def subset3(nums):
-    if nums == []:
-        return [[]]
-    result = []
-    for index in range(len(nums)):
-        newset = nums[index+1:]
-        for sub in subset3(newset):
-            if sub not in result:
-                result.append(sub)
-                result.append([nums[index]]+sub)
-    return result
+#sub set with duplicate backtract
+class Dup(object):
+    def subsetsWithDup(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: List[List[int]]
+        """
+        nums.sort()
+        ans = []
+        self.backtrack(nums, [], ans, 0)
+        return ans
 
-re = subset3(numsset)
-print re
+    def backtrack(self, nums, li, ans, index):
+        ans.append(li)
+        for i in range(index, len(nums)):
+            if i > index and nums[i] == nums[i - 1]:
+                continue
+            self.backtrack(nums, li + [nums[i]], ans, i + 1)
